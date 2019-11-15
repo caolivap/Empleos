@@ -18,7 +18,7 @@ public class EmpleosPage extends PageObject {
   @FindBy(xpath = "//div[@class='position']//h3")
   private List<WebElement> lstVacantes;
 
-  @FindBy(xpath = "//input[@id='search_location']")
+  @FindBy(id = "search_location")
   private WebElementFacade txtUbicacion;
 
   @FindBy(xpath = "//div[@class='location']")

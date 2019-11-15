@@ -2,8 +2,8 @@ package com.choucair.empleos.steps;
 
 import com.choucair.empleos.pages.EmpleosPage;
 import com.choucair.empleos.pages.HomePage;
-import java.text.Normalizer;
-import java.text.Normalizer.Form;
+import com.choucair.empleos.utils.EnumConstantes;
+import com.choucair.empleos.utils.FormatearTexto;
 import java.util.ArrayList;
 import java.util.List;
 import net.thucydides.core.annotations.Step;
@@ -16,7 +16,7 @@ public class AspiranteStep {
   @Page EmpleosPage empleosPage;
 
   @Step
-  public void AbrirHomePage() {
+  public void abrirHomePage() {
     homePage.open();
   }
 
@@ -34,25 +34,20 @@ public class AspiranteStep {
     empleosPage.clickearBuscarTrabajos();
   }
 
-  public void verificarResultadosBusqueda(String palabra, String tipoBusqueda) {
+  public void verificarResultadosBusqueda(String palabra, EnumConstantes tipoBusqueda) {
     List<String> lstResultados = new ArrayList<>();
-    if (tipoBusqueda == "palabra clave") {
-      lstResultados = empleosPage.listarVacantes();
-    } else if (tipoBusqueda == "ubicación") {
-      lstResultados = empleosPage.listarUbicaciones();
+    switch (tipoBusqueda) {
+      case TIPO_PALABRA_CLAVE:
+        lstResultados = empleosPage.listarVacantes();
+      case TIPO_UBICACION:
+        lstResultados = empleosPage.listarUbicaciones();
     }
     MatcherAssert.assertThat(
         "No se mostraron vacantes para la búsqueda por " + tipoBusqueda + ":" + palabra,
         !lstResultados.isEmpty());
     for (String titulo : lstResultados) {
-      //Collator auxTitulo = Collator.getInstance();
-      //auxTitulo.setStrength(Collator.NO_DECOMPOSITION);
-      titulo =
-          Normalizer.normalize(titulo, Form.NFD)
-              .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-      palabra =
-          Normalizer.normalize(palabra, Form.NFD)
-              .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+      titulo = FormatearTexto.mayusculasSinAcento(titulo);
+      palabra = FormatearTexto.mayusculasSinAcento(palabra);
       MatcherAssert.assertThat(
           "El resultado " + titulo + " no contiene la " + tipoBusqueda + ":" + palabra,
           titulo.toUpperCase().contains(palabra.toUpperCase()));

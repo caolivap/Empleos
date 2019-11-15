@@ -15,7 +15,7 @@ public class BusquedaVacantesDefinitions {
 
   @Dado("^que estoy en la sección de empleos de la página web de Choucair testing$")
   public void queEstoyEnLaSeccionDeEmpleosDeLaPaginaWebDeChoucairTesting() {
-    aspiranteStep.AbrirHomePage();
+    aspiranteStep.abrirHomePage();
     aspiranteStep.irASeccionEmpleos();
   }
 
@@ -31,11 +31,11 @@ public class BusquedaVacantesDefinitions {
 
   @Entonces("^se muestran las vacantes disponibles que contienen la palabra (.*)$")
   public void seMuestranLasVacantesDisponiblesEnElMomento(String palabra) {
-    aspiranteStep.verificarResultadosBusqueda(palabra, TIPO_PALABRA_CLAVE.getValor());
+    aspiranteStep.verificarResultadosBusqueda(palabra, TIPO_PALABRA_CLAVE);
   }
 
   @Entonces("^se muestran las vacantes disponibles para la ciudad (.*)$")
   public void seMuestranLasVacantesDisponiblesEn(String ciudad) {
-    aspiranteStep.verificarResultadosBusqueda(ciudad, TIPO_UBICACION.getValor());
+    aspiranteStep.verificarResultadosBusqueda(ciudad, TIPO_UBICACION);
   }
 }
