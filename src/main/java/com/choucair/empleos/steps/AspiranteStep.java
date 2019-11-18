@@ -3,7 +3,7 @@ package com.choucair.empleos.steps;
 import com.choucair.empleos.pages.EmpleosPage;
 import com.choucair.empleos.pages.HomePage;
 import com.choucair.empleos.utils.EnumConstantes;
-import com.choucair.empleos.utils.FormatearTexto;
+import com.choucair.empleos.utils.FormatosTexto;
 import java.util.ArrayList;
 import java.util.List;
 import net.thucydides.core.annotations.Step;
@@ -46,8 +46,8 @@ public class AspiranteStep {
         "No se mostraron vacantes para la búsqueda por " + tipoBusqueda + ":" + palabra,
         !lstResultados.isEmpty());
     for (String titulo : lstResultados) {
-      titulo = FormatearTexto.mayusculasSinAcento(titulo);
-      palabra = FormatearTexto.mayusculasSinAcento(palabra);
+      titulo = FormatosTexto.mayusculasSinAcento(titulo);
+      palabra = FormatosTexto.mayusculasSinAcento(palabra);
       MatcherAssert.assertThat(
           "El resultado " + titulo + " no contiene la " + tipoBusqueda + ":" + palabra,
           titulo.toUpperCase().contains(palabra.toUpperCase()));
